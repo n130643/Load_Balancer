@@ -1,0 +1,37 @@
+version: '3.8' 
+
+services:
+
+  load-balancer-db-service:
+    image: mysql:5.7
+    container_name: load-balancer-db-service
+    ports: 
+      - 3306:3306
+    environment: 
+      - MYSQL_ROOT_HOST=${DB_HOST:-load-balancer-db} 
+      - MYSQL_USER=${DB_USER:-Gopi}
+      - MYSQL_PASSWORD=${DB_PASSWORD:-Gopi}
+      - MYSQL_DATABASE=${DB_NAME:-sample_db}
+      - MYSQL_ROOT_PASSWORD=${DB_PASSWORD:-Gopi}
+    hostname : load-balancer-db
+    volumes:
+      - database_mysql:/var/lib/mysql
+    networks:
+      - myNetwork
+  load-balancer-service:
+      depends_on:
+        - load-balancer-db-service
+      build:
+        context : .
+      container_name: load-balancer-service
+      hostname: load-balancer-service
+      networks:
+        - myNetwork
+      ports:
+        - 80:8081
+volumes:
+  database_mysql:                  
+
+networks:
+  myNetwork:
+    driver: bridge
