@@ -1,0 +1,24 @@
+- Make sure to create sample_db and following tables before accessing any APIs.
+
+          - CREATE TABLE `load_balancers` (
+        `id` varchar(255) NOT NULL,
+        `url` varchar(255) DEFAULT NULL,
+        `ll_status` varchar(255) DEFAULT NULL,
+        `cur_rr_status` varchar(255) DEFAULT NULL,
+        `ll_order` int(11) DEFAULT NULL,
+        PRIMARY KEY (`id`)
+      ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+      
+      
+      - CREATE TABLE `load_balancers_runs` (
+      `id` varchar(255) NOT NULL,
+      `url_id` varchar(255) DEFAULT NULL,
+      `request_time` datetime DEFAULT NULL,
+      `response_status` varchar(255) DEFAULT NULL,
+      PRIMARY KEY (`id`),
+      KEY `url_id` (`url_id`),
+      CONSTRAINT `load_balancers_runs_ibfk_1` FOREIGN KEY (`url_id`) REFERENCES `load_balancers` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+    ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+    
+- Mocked the behaviour request routing in loading balacing system using switch case. So please register routes according to 
+    https://github.com/n130643/Load_Balancer/blob/main/load_balancer/app/main.go#L31
