@@ -28,5 +28,9 @@ Load balancer app serves two APIs for balacing the load on system from incoming 
   
 <img width="550" alt="Screenshot 2022-07-04 at 2 49 31 PM" src="https://user-images.githubusercontent.com/32019167/177124707-ff653d9e-1673-42ff-a0c7-1f45664f2ebc.png">
 
-  
+
+Load distribution to sytems is on round robin manner. If a request has to routed to unhealthy route, it'll redirected next avaialble healthy route.
+
+Please refer setup.txt before runnig application.
+ 
       
